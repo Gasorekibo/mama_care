@@ -9,7 +9,13 @@ export class HealthcareFacility {
   @Column()
   name: string;
 
-  @ManyToOne(() => Location)
+  @ManyToOne(() => Location, {
+    eager: true,
+    cascade: true,
+    nullable: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
   @JoinColumn()
   location: Location;
 

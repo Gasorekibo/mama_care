@@ -1,11 +1,21 @@
-import { IsEmail, IsPhoneNumber } from "class-validator";
-import { UserRole } from "src/enums/user-role.enum";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { PregnancyProfile } from "../pregnancy-profile.entity/pregnancy-profile.entity";
-import { HealthCheckup } from "../health_checkups.entity/health_checkups.entity";
-import { Appointment } from "../appointments.entity/appointments.entity";
-import { EmergencyContact } from "../emergency_contacts.entity/emergency_contacts.entity";
-import { Location } from "../location.entity/location.entity";
+import { IsEmail, IsPhoneNumber } from 'class-validator';
+import { UserRole } from 'src/enums/user-role.enum';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { PregnancyProfile } from '../pregnancy-profile.entity/pregnancy-profile.entity';
+import { HealthCheckup } from '../health_checkups.entity/health_checkups.entity';
+import { Appointment } from '../appointments.entity/appointments.entity';
+import { EmergencyContact } from '../emergency_contacts.entity/emergency_contacts.entity';
+import { Location } from '../location.entity/location.entity';
 
 @Entity()
 export class User {
@@ -33,7 +43,11 @@ export class User {
   })
   role: UserRole;
 
-  @Column({ nullable: true })
+  @Column({
+    nullable: true,
+    default:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvTP1iEsFlSIMm_5drt4-qncPpeaji0_TcosoE4a4xf1eAJKNW9ybwiGToqfj4kQITvK4&usqp=CAU',
+  })
   profileImageUrl: string;
 
   @CreateDateColumn()
@@ -55,7 +69,13 @@ export class User {
   @OneToMany(() => EmergencyContact, (contact) => contact.user)
   emergencyContacts: EmergencyContact[];
 
-  @ManyToOne(() => Location)
+  @ManyToOne(() => Location, {
+    eager: true,
+    cascade: true,
+    nullable: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
   @JoinColumn()
   location: Location;
 }
