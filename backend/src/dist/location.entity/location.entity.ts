@@ -4,7 +4,7 @@ import { HealthcareFacility } from "../healthcare_facilities.entity/healthcare_f
 @Entity()
 export class Location {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column('float')
   latitude: number;

@@ -15,14 +15,14 @@ import { HealthRecommendation } from '../health_recommendations.entity/health_re
 @Entity()
 export class PregnancyProfile {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @OneToOne(() => User)
   @JoinColumn()
   user: User;
 
   @Column()
-  userId: string;
+  userId: number;
 
   @Column()
   lastMenstrualDate: Date;

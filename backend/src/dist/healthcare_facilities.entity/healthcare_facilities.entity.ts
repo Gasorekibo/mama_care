@@ -3,6 +3,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Location } from '../location.entity/location.entity';
@@ -32,7 +33,10 @@ export class HealthcareFacility {
   @Column({ unique: true, nullable: false })
   contactNumber: string;
 
-  @Column('boolean')
+  @OneToMany(
+    () => EmergencyAlert,
+    (emergencyAlert) => emergencyAlert.assignedFacility,
+  )
   emergencyAlerts: EmergencyAlert[];
 
   @Column({ unique: true, nullable: false })

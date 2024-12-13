@@ -3,15 +3,13 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateEmergenceServiceDto } from './dto/create-emergence-service.dto';
-import { UpdateEmergenceServiceDto } from './dto/update-emergence-service.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EmergencyAlert } from 'src/dist/emergency_alerts.entity/emergency_alerts.entity';
-import { Repository } from 'typeorm';
-import { User } from 'src/dist/user/user.entity';
 import { HealthFacilityService } from 'src/health-facility/health-facility.service';
-import e from 'express';
 import { LoginUser } from 'src/user/types/loginUserInterface';
+import { Repository } from 'typeorm';
+import { CreateEmergenceServiceDto } from './dto/create-emergence-service.dto';
+import { UpdateEmergenceServiceDto } from './dto/update-emergence-service.dto';
 
 @Injectable()
 export class EmergenceServiceService {

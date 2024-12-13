@@ -12,14 +12,14 @@ import { AppointmentStatus } from 'src/enums/appointment-status.enum';
 @Entity()
 export class Appointment {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @ManyToOne(() => User)
   @JoinColumn()
   user: User;
 
   @Column()
-  userId: string;
+  userId: number;
 
   @ManyToOne(() => User)
   @JoinColumn()

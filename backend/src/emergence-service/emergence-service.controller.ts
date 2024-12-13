@@ -47,14 +47,14 @@ export class EmergenceServiceController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateEmergenceServiceDto: UpdateEmergenceServiceDto,
   ) {
     return this.emergenceServiceService.update(+id, updateEmergenceServiceDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.emergenceServiceService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.emergenceServiceService.remove(id);
   }
 }

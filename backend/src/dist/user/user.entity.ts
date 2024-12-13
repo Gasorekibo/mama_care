@@ -20,7 +20,7 @@ import { Location } from '../location.entity/location.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ nullable: false })
   full_name: string;

@@ -1,6 +1,6 @@
 export interface LoginUser {
-    email: string
-    sub: {
-        id:string
-    }
+  email: string;
+  sub: {
+    id: number;
+  };
 }

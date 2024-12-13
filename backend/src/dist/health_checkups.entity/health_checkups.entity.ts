@@ -4,14 +4,14 @@ import { User } from "../user/user.entity";
 @Entity()
 export class HealthCheckup {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @ManyToOne(() => User)
   @JoinColumn()
   user: User;
 
   @Column()
-  userId: string;
+  userId: number;
 
   @Column('float')
   weight: number;

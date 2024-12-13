@@ -4,7 +4,7 @@ import { User } from "../user/user.entity";
 @Entity()
 export class EmergencyContact {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @ManyToOne(() => User)
   @JoinColumn()

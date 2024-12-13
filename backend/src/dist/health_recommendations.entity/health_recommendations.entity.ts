@@ -5,7 +5,7 @@ import { RiskLevel } from "src/enums/risk-level.enum";
 @Entity()
 export class HealthRecommendation {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @ManyToOne(() => PregnancyProfile)
   @JoinColumn()

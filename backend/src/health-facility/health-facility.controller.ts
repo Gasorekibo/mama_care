@@ -33,14 +33,14 @@ export class HealthFacilityController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateHealthFacilityDto: UpdateHealthFacilityDto,
   ) {
-    return this.healthFacilityService.update(+id, updateHealthFacilityDto);
+    return this.healthFacilityService.update(id, updateHealthFacilityDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.healthFacilityService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.healthFacilityService.remove(id);
   }
 }
