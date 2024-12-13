@@ -16,14 +16,15 @@ export class HealthFacilityService {
     @InjectRepository(HealthcareFacility)
     private healthFacilityRepository: Repository<HealthcareFacility>,
   ) {}
-  create(
+  async create(
     createHealthFacilityDto: CreateHealthFacilityDto,
   ): Promise<HealthcareFacility> {
     try {
-      const facility = this.healthFacilityRepository.create(
+      const facility = await this.healthFacilityRepository.create(
         createHealthFacilityDto,
       );
-      return this.healthFacilityRepository.save(facility);
+
+      return await this.healthFacilityRepository.save(facility);
     } catch (error) {
       if (error.code === '23505') {
         throw new ConflictException('Facility already exists');
@@ -33,12 +34,16 @@ export class HealthFacilityService {
   }
 
   findAll() {
-    return this.healthFacilityRepository.find();
+    return this.healthFacilityRepository.find({
+      relations: ['location', 'emergencyAlerts'],
+    });
   }
 
   findOne(id: number) {
     try {
-      const facility = this.healthFacilityRepository.findOneBy({ id });
+      const facility = this.healthFacilityRepository.findOne(
+        { where: { id }, relations: ['location', 'emergencyAlerts'] },
+      );
       if (!facility) {
         throw new NotFoundException(`Facility with id ${id} not found`);
       }

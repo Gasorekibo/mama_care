@@ -36,6 +36,10 @@ export class HealthcareFacility {
   @OneToMany(
     () => EmergencyAlert,
     (emergencyAlert) => emergencyAlert.assignedFacility,
+    {
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
   )
   emergencyAlerts: EmergencyAlert[];
 
