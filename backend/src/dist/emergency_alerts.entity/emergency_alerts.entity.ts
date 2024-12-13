@@ -12,21 +12,22 @@ import { HealthcareFacility } from '../healthcare_facilities.entity/healthcare_f
 @Entity()
 export class EmergencyAlert {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, {
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   user: User;
-
-  @Column()
-  userId: string;
 
   @Column('jsonb')
   location: {
     latitude: number;
     longitude: number;
   };
-
   @Column('text')
   emergencyType: string;
 
@@ -36,13 +37,17 @@ export class EmergencyAlert {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => HealthcareFacility, {
-    nullable: false,
-    eager: true,
-    cascade: true,
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(
+    () => HealthcareFacility,
+    (healthcareFacility) => healthcareFacility.emergencyAlerts,
+    {
+      nullable: false,
+      eager: true,
+      cascade: true,
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
+  )
   @JoinColumn()
   assignedFacility: HealthcareFacility;
 }
