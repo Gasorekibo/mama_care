@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateHealthFacilityDto } from './dto/create-health-facility.dto';
 import { UpdateHealthFacilityDto } from './dto/update-health-facility.dto';
@@ -36,7 +37,15 @@ export class HealthFacilityService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} healthFacility`;
+    try {
+      const facility = this.healthFacilityRepository.findOneBy({ id });
+      if (!facility) {
+        throw new NotFoundException(`Facility with id ${id} not found`);
+      }
+      return facility;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   update(id: number, updateHealthFacilityDto: UpdateHealthFacilityDto) {
