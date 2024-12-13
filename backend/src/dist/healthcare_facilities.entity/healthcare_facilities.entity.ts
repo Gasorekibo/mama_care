@@ -6,11 +6,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Location } from '../location.entity/location.entity';
+import { EmergencyAlert } from '../emergency_alerts.entity/emergency_alerts.entity';
 
 @Entity()
 export class HealthcareFacility {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ unique: true, nullable: false })
   name: string;
@@ -32,7 +33,7 @@ export class HealthcareFacility {
   contactNumber: string;
 
   @Column('boolean')
-  hasEmergencyServices: boolean;
+  emergencyAlerts: EmergencyAlert[];
 
   @Column({ unique: true, nullable: false })
   email: string;

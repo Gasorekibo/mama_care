@@ -6,6 +6,7 @@ import { TypeOrmConfigService } from './config/database.config';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { UserModule } from './user/user.module';
 import { HealthFacilityModule } from './health-facility/health-facility.module';
+import { EmergenceServiceModule } from './emergence-service/emergence-service.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { HealthFacilityModule } from './health-facility/health-facility.module';
     AuthenticationModule,
     UserModule,
     HealthFacilityModule,
+    EmergenceServiceModule,
   ],
   controllers: [],
   providers: [],
