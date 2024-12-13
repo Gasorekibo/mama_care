@@ -1,6 +1,13 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "../user/user.entity";
-import { HealthcareFacility } from "../healthcare_facilities.entity/healthcare_facilities.entity";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from '../user/user.entity';
+import { HealthcareFacility } from '../healthcare_facilities.entity/healthcare_facilities.entity';
 
 @Entity()
 export class EmergencyAlert {
@@ -29,7 +36,13 @@ export class EmergencyAlert {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => HealthcareFacility, { nullable: true })
+  @ManyToOne(() => HealthcareFacility, {
+    nullable: false,
+    eager: true,
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   assignedFacility: HealthcareFacility;
 }
