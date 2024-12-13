@@ -7,6 +7,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { UserModule } from './user/user.module';
 import { HealthFacilityModule } from './health-facility/health-facility.module';
 import { EmergenceServiceModule } from './emergence-service/emergence-service.module';
+import { PregnancyProfileModule } from './pregnancy-profile/pregnancy-profile.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { EmergenceServiceModule } from './emergence-service/emergence-service.mo
     UserModule,
     HealthFacilityModule,
     EmergenceServiceModule,
+    PregnancyProfileModule,
   ],
   controllers: [],
   providers: [],

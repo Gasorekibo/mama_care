@@ -17,12 +17,9 @@ export class PregnancyProfile {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, {nullable: false})
   @JoinColumn()
   user: User;
-
-  @Column()
-  userId: number;
 
   @Column()
   lastMenstrualDate: Date;
