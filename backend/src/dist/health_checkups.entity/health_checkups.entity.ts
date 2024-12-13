@@ -10,9 +10,6 @@ export class HealthCheckup {
   @JoinColumn()
   user: User;
 
-  @Column()
-  userId: number;
-
   @Column('float')
   weight: number;
 

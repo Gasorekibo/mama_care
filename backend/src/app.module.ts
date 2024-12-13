@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { HealthFacilityModule } from './health-facility/health-facility.module';
 import { EmergenceServiceModule } from './emergence-service/emergence-service.module';
 import { PregnancyProfileModule } from './pregnancy-profile/pregnancy-profile.module';
+import { HealthCheckupsModule } from './health-checkups/health-checkups.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PregnancyProfileModule } from './pregnancy-profile/pregnancy-profile.mo
     HealthFacilityModule,
     EmergenceServiceModule,
     PregnancyProfileModule,
+    HealthCheckupsModule,
   ],
   controllers: [],
   providers: [],
