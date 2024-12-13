@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './config/database.config';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { UserModule } from './user/user.module';
+import { HealthFacilityModule } from './health-facility/health-facility.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserModule } from './user/user.module';
     }),
     AuthenticationModule,
     UserModule,
+    HealthFacilityModule,
   ],
   controllers: [],
   providers: [],
