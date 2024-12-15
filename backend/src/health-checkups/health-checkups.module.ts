@@ -5,12 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthCheckup } from 'src/dist/health_checkups.entity/health_checkups.entity';
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/dist/user/user.entity';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([HealthCheckup, User]),
-  ],
+  imports: [TypeOrmModule.forFeature([HealthCheckup, User])],
   controllers: [HealthCheckupsController],
-  providers: [HealthCheckupsService, UserService],
+  providers: [HealthCheckupsService, UserService, CloudinaryService],
 })
 export class HealthCheckupsModule {}
