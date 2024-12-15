@@ -24,13 +24,13 @@ export class HealthCheckupsController {
   }
 
   @Get()
-  findAll() {
-    return this.healthCheckupsService.findAll();
+  findAll(@Body('userId') id: number) {
+    return this.healthCheckupsService.findAll(id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.healthCheckupsService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.healthCheckupsService.findOne(id);
   }
 
   @Patch(':id')
