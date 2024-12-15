@@ -26,7 +26,6 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@CurrentLoginUser() user) {
-    console.log(user);
     return this.userService.findAll();
   }
 
