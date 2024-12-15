@@ -13,7 +13,9 @@ export class HealthCheckupsService {
     private readonly healthCheckupRepository: Repository<HealthCheckup>,
     private readonly usersService: UserService,
   ) {}
-  async create(createHealthCheckupDto: CreateHealthCheckupDto) {
+  async create(
+    createHealthCheckupDto: CreateHealthCheckupDto,
+  ): Promise<HealthCheckup> {
     try {
       const user = await this.usersService.findOne(
         createHealthCheckupDto.userId,
@@ -29,8 +31,17 @@ export class HealthCheckupsService {
     }
   }
 
-  findAll() {
-    return `This action returns all healthCheckups`;
+  async findAll(userId: number): Promise<HealthCheckup[]> {
+    console.log(userId);
+    try {
+      const healthCheckups = await this.healthCheckupRepository.find({
+        where: { user: { id: userId } },
+        relations: ['user'],
+      });
+      return healthCheckups;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   findOne(id: number) {
