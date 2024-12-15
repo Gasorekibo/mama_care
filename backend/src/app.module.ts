@@ -9,6 +9,7 @@ import { HealthFacilityModule } from './health-facility/health-facility.module';
 import { EmergenceServiceModule } from './emergence-service/emergence-service.module';
 import { PregnancyProfileModule } from './pregnancy-profile/pregnancy-profile.module';
 import { HealthCheckupsModule } from './health-checkups/health-checkups.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { HealthCheckupsModule } from './health-checkups/health-checkups.module';
     EmergenceServiceModule,
     PregnancyProfileModule,
     HealthCheckupsModule,
+    CloudinaryModule,
   ],
   controllers: [],
   providers: [],
