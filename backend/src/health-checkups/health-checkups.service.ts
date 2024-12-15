@@ -17,7 +17,7 @@ export class HealthCheckupsService {
     createHealthCheckupDto: CreateHealthCheckupDto,
   ): Promise<HealthCheckup> {
     try {
-      const user = await this.usersService.findOne(
+      const user = await this.usersService.getUser(
         createHealthCheckupDto.userId,
       );
       const healthCheckup = this.healthCheckupRepository.create({
