@@ -1,19 +1,21 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
+  Param,
   ParseIntPipe,
+  Patch,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth-guard';
 import { CurrentLoginUser } from 'src/authentication/decorator/get-loginUser';
+import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth-guard';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UserService } from './user.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/v1/users')
 export class UserController {
@@ -31,16 +33,20 @@ export class UserController {
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.findOne(id);
+    return this.userService.getUser(id);
   }
 
-  @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  @Patch('profile/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.userService.updateProfilePicture(id, file);
   }
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.remove(+id);
+    return this.userService.remove(id);
   }
 }
