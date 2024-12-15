@@ -8,12 +8,14 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/dist/user/user.entity';
 import { Repository } from 'typeorm';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
@@ -27,7 +29,7 @@ export class UserService {
     }
   }
 
-  async findOne(id: number): Promise<User> {
+  async getUser(id: number): Promise<User> {
     try {
       const user = await this.userRepository.findOne({
         where: { id },
@@ -46,8 +48,18 @@ export class UserService {
     }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async updateProfilePicture(
+    id: number,
+    file: Express.Multer.File,
+  ): Promise<User> {
+    try {
+      const user = await this.getUser(id);
+      const { url } = await this.cloudinaryService.uploadFile(file);
+      user.profileImageUrl = url;
+      return await this.userRepository.save(user);
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   remove(id: number) {
