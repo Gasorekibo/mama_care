@@ -1,6 +1,13 @@
-import { EducationModuleType } from "src/enums/education-module-type.enum";
-import { RiskLevel } from "src/enums/risk-level.enum";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { EducationModuleType } from 'src/enums/education-module-type.enum';
+import { RiskLevel } from 'src/enums/risk-level.enum';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class EducationModule {
@@ -12,10 +19,9 @@ export class EducationModule {
 
   @Column('text')
   content: string;
-
-  @Column('int')
-  trimester: number;
-
+  @ManyToOne(() => User, { eager: true, nullable: false })
+  @JoinColumn()
+  author: number;
   @Column({
     type: 'enum',
     enum: EducationModuleType,
