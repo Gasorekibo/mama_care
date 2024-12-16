@@ -1,32 +1,46 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  InternalServerErrorException,
+  Param,
   ParseIntPipe,
+  Patch,
+  Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { HealthFacilityService } from './health-facility.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Role } from 'src/authorization/role/role.decorator';
+import { RoleGuard } from 'src/authorization/role/role.guard';
+import { UserRole } from 'src/enums/user-role.enum';
 import { CreateHealthFacilityDto } from './dto/create-health-facility.dto';
 import { UpdateHealthFacilityDto } from './dto/update-health-facility.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { HealthFacilityService } from './health-facility.service';
+import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth-guard';
 
 @Controller('api/v1/facility')
 export class HealthFacilityController {
   constructor(private readonly healthFacilityService: HealthFacilityService) {}
-
+  @UseGuards(RoleGuard)
+  @Role(UserRole.HEALTHCARE_PROVIDER)
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createHealthFacilityDto: CreateHealthFacilityDto) {
     return this.healthFacilityService.create(createHealthFacilityDto);
   }
-
+  @UseGuards(RoleGuard)
+  @Role(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
-    return this.healthFacilityService.findAll();
+  async findAll() {
+    try {
+      return await this.healthFacilityService.findAll();
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   @Get(':id')
@@ -41,7 +55,9 @@ export class HealthFacilityController {
   ) {
     return this.healthFacilityService.update(id, updateHealthFacilityDto);
   }
-
+  @UseGuards(RoleGuard)
+  @Role(UserRole.HEALTHCARE_PROVIDER)
+  @UseGuards(JwtAuthGuard)
   @Patch('profile/:id')
   @UseInterceptors(FileInterceptor('file'))
   updateProfile(
