@@ -5,13 +5,18 @@ import { HealthFacilityService } from 'src/health-facility/health-facility.servi
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmergencyAlert } from 'src/dist/emergency_alerts.entity/emergency_alerts.entity';
 import { HealthcareFacility } from 'src/dist/healthcare_facilities.entity/healthcare_facilities.entity';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([EmergencyAlert]),
-    TypeOrmModule.forFeature([HealthcareFacility])
+    TypeOrmModule.forFeature([HealthcareFacility]),
   ],
   controllers: [EmergenceServiceController],
-  providers: [EmergenceServiceService, HealthFacilityService],
+  providers: [
+    EmergenceServiceService,
+    HealthFacilityService,
+    CloudinaryService,
+  ],
 })
 export class EmergenceServiceModule {}

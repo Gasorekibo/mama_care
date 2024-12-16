@@ -9,12 +9,14 @@ import { UpdateHealthFacilityDto } from './dto/update-health-facility.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HealthcareFacility } from 'src/dist/healthcare_facilities.entity/healthcare_facilities.entity';
 import { Repository } from 'typeorm';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class HealthFacilityService {
   constructor(
     @InjectRepository(HealthcareFacility)
     private healthFacilityRepository: Repository<HealthcareFacility>,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
   async create(
     createHealthFacilityDto: CreateHealthFacilityDto,
@@ -33,26 +35,40 @@ export class HealthFacilityService {
     }
   }
 
-  findAll() {
-    return this.healthFacilityRepository.find({
+  async findAll() {
+    return await this.healthFacilityRepository.find({
       relations: ['location', 'emergencyAlerts'],
     });
   }
 
-  findOne(id: number) {
+  async findOne(id: number): Promise<HealthcareFacility> {
     try {
-      const facility = this.healthFacilityRepository.findOne(
-        { where: { id }, relations: ['location', 'emergencyAlerts'] },
-      );
+      const facility = await this.healthFacilityRepository.findOne({
+        where: { id },
+        relations: ['location', 'emergencyAlerts'],
+      });
       if (!facility) {
         throw new NotFoundException(`Facility with id ${id} not found`);
       }
       return facility;
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
       throw new InternalServerErrorException(error.message);
     }
   }
 
+  async updateProfilePicture(id: number, file: Express.Multer.File) {
+    try {
+      const user = await this.findOne(id);
+      const { url } = await this.cloudinaryService.uploadFile(file);
+      user.profilePicture = url;
+      return await this.healthFacilityRepository.save(user);
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
   update(id: number, updateHealthFacilityDto: UpdateHealthFacilityDto) {
     return `This action updates a #${id} healthFacility`;
   }

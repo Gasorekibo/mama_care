@@ -7,10 +7,13 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { HealthFacilityService } from './health-facility.service';
 import { CreateHealthFacilityDto } from './dto/create-health-facility.dto';
 import { UpdateHealthFacilityDto } from './dto/update-health-facility.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/v1/facility')
 export class HealthFacilityController {
@@ -37,6 +40,15 @@ export class HealthFacilityController {
     @Body() updateHealthFacilityDto: UpdateHealthFacilityDto,
   ) {
     return this.healthFacilityService.update(id, updateHealthFacilityDto);
+  }
+
+  @Patch('profile/:id')
+  @UseInterceptors(FileInterceptor('file'))
+  updateProfile(
+    @Param('id', ParseIntPipe) id: number,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.healthFacilityService.updateProfilePicture(id, file);
   }
 
   @Delete(':id')
