@@ -10,7 +10,6 @@ import {
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { RiskLevel } from 'src/enums/risk-level.enum';
-import { HealthRecommendation } from '../health_recommendations.entity/health_recommendations.entity';
 
 @Entity()
 export class PregnancyProfile {
@@ -48,10 +47,4 @@ export class PregnancyProfile {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @OneToMany(
-    () => HealthRecommendation,
-    (recommendation) => recommendation.pregnancyProfile,
-  )
-  recommendations: HealthRecommendation[];
 }

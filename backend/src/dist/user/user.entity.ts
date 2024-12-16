@@ -14,7 +14,6 @@ import {
 import { PregnancyProfile } from '../pregnancy-profile.entity/pregnancy-profile.entity';
 import { HealthCheckup } from '../health_checkups.entity/health_checkups.entity';
 import { Appointment } from '../appointments.entity/appointments.entity';
-import { EmergencyContact } from '../emergency_contacts.entity/emergency_contacts.entity';
 import { Location } from '../location.entity/location.entity';
 
 @Entity()
@@ -65,9 +64,6 @@ export class User {
 
   @OneToMany(() => Appointment, (appointment) => appointment.user)
   appointments: Appointment[];
-
-  @OneToMany(() => EmergencyContact, (contact) => contact.user)
-  emergencyContacts: EmergencyContact[];
 
   @ManyToOne(() => Location, {
     eager: true,
