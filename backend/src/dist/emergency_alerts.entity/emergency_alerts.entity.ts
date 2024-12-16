@@ -42,7 +42,7 @@ export class EmergencyAlert {
     (healthcareFacility) => healthcareFacility.emergencyAlerts,
     {
       nullable: false,
-      eager: true,
+      eager: false,
       cascade: true,
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
