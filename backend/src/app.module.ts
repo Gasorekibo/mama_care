@@ -11,6 +11,7 @@ import { PregnancyProfileModule } from './pregnancy-profile/pregnancy-profile.mo
 import { HealthCheckupsModule } from './health-checkups/health-checkups.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { AuthorizationModule } from './authorization/authorization.module';
+import { EducationContentModule } from './education-content/education-content.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AuthorizationModule } from './authorization/authorization.module';
     HealthCheckupsModule,
     CloudinaryModule,
     AuthorizationModule,
+    EducationContentModule,
   ],
   controllers: [],
   providers: [],
