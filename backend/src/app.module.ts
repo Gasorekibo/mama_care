@@ -10,6 +10,7 @@ import { EmergenceServiceModule } from './emergence-service/emergence-service.mo
 import { PregnancyProfileModule } from './pregnancy-profile/pregnancy-profile.module';
 import { HealthCheckupsModule } from './health-checkups/health-checkups.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { AuthorizationModule } from './authorization/authorization.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     PregnancyProfileModule,
     HealthCheckupsModule,
     CloudinaryModule,
+    AuthorizationModule,
   ],
   controllers: [],
   providers: [],
