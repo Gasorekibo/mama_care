@@ -2,22 +2,14 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { HealthcareFacility } from 'src/dist/healthcare_facilities.entity/healthcare_facilities.entity';
-export enum TransportMode {
-  WALKING = 'walking',
-  BICYCLE = 'bicycle',
-  CAR = 'car',
-}
+import { TransportMode } from 'src/enums/transportMeans.enum';
+import { NearbyHospitalSearchDto } from './dto/nearByHospital.dto';
+
 const TRAVEL_SPEEDS = {
   [TransportMode.WALKING]: 5,
   [TransportMode.BICYCLE]: 15,
   [TransportMode.CAR]: 50,
 };
-
-export class NearbyHospitalSearchDto {
-  latitude: number;
-  longitude: number;
-  maxDistance?: number;
-}
 
 @Injectable()
 export class NearbyHospitalService {
