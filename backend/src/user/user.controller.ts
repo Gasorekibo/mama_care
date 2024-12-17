@@ -25,7 +25,7 @@ export class UserController {
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get()
   findAll(@CurrentLoginUser() user) {
     return this.userService.findAll();
