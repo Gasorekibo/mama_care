@@ -1,13 +1,16 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   InternalServerErrorException,
   Param,
+  ParseFloatPipe,
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -20,10 +23,14 @@ import { CreateHealthFacilityDto } from './dto/create-health-facility.dto';
 import { UpdateHealthFacilityDto } from './dto/update-health-facility.dto';
 import { HealthFacilityService } from './health-facility.service';
 import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth-guard';
+import { NearbyHospitalService } from './nearbyHospitalService';
 
 @Controller('api/v1/facility')
 export class HealthFacilityController {
-  constructor(private readonly healthFacilityService: HealthFacilityService) {}
+  constructor(
+    private readonly healthFacilityService: HealthFacilityService,
+    private readonly nearbyHospitalService: NearbyHospitalService,
+  ) {}
   @UseGuards(RoleGuard)
   @Role(UserRole.HEALTHCARE_PROVIDER, UserRole.ADMIN)
   @UseGuards(JwtAuthGuard)
@@ -42,7 +49,23 @@ export class HealthFacilityController {
       throw new InternalServerErrorException(error.message);
     }
   }
-
+  @Get('nearby')
+  async findNearbyHospitals(
+    @Query('latitude', ParseFloatPipe) latitude: number,
+    @Query('longitude', ParseFloatPipe) longitude: number,
+    @Query('maxDistance', new DefaultValuePipe(10), ParseFloatPipe)
+    maxDistance?: number,
+  ) {
+    try {
+      return await this.nearbyHospitalService.findNearbyHospitals({
+        latitude,
+        longitude,
+        maxDistance,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.healthFacilityService.findOne(id);
