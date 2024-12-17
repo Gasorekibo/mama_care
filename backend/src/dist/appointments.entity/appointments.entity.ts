@@ -14,25 +14,19 @@ export class Appointment {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn()
-  user: User;
+  owner: User;
 
-  @Column()
-  userId: number;
-
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn()
   healthWorker: User;
 
-  @Column()
-  healthWorkerId: string;
+  @Column({ type: 'varchar', length: 255 })
+  start_date: string;
 
-  @Column()
-  start_date: Date;
-  
-  @Column()
-  end: Date;
+  @Column({ type: 'varchar', length: 255 })
+  end_date: string;
 
   @Column({
     type: 'enum',
