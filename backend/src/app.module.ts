@@ -12,6 +12,7 @@ import { HealthCheckupsModule } from './health-checkups/health-checkups.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { AuthorizationModule } from './authorization/authorization.module';
 import { EducationContentModule } from './education-content/education-content.module';
+import { AppointmentsModule } from './appointments/appointments.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { EducationContentModule } from './education-content/education-content.mo
     CloudinaryModule,
     AuthorizationModule,
     EducationContentModule,
+    AppointmentsModule,
   ],
   controllers: [],
   providers: [],
