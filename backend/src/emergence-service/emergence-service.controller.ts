@@ -1,21 +1,20 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
+  Param,
   ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards,
 } from '@nestjs/common';
-import { EmergenceServiceService } from './emergence-service.service';
-import { CreateEmergenceServiceDto } from './dto/create-emergence-service.dto';
-import { UpdateEmergenceServiceDto } from './dto/update-emergence-service.dto';
 import { CurrentLoginUser } from 'src/authentication/decorator/get-loginUser';
-import { User } from 'src/dist/user/user.entity';
 import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth-guard';
 import { LoginUser } from 'src/user/types/loginUserInterface';
+import { CreateEmergenceServiceDto } from './dto/create-emergence-service.dto';
+import { UpdateEmergenceServiceDto } from './dto/update-emergence-service.dto';
+import { EmergenceServiceService } from './emergence-service.service';
 
 @Controller('api/v1/emergence-alert')
 @UseGuards(JwtAuthGuard)

@@ -44,7 +44,7 @@ export class AppointmentsService {
       const allAppointments = await this.appointmentRepository.find();
       const appointmentsOfThisHealthCareWorker = allAppointments.filter(
         (appointment) => {
-          return appointment.healthWorker.id === id;
+          return appointment.healthWorker.id === +id;
         },
       );
       const isThereAnyAppointment = appointmentsOfThisHealthCareWorker.some(

@@ -28,8 +28,8 @@ export class EducationContentController {
   constructor(
     private readonly educationContentService: EducationContentService,
   ) {}
-  //@Role(UserRole.ADMIN, UserRole.COMMUNITY_HEALTH_WORKER)
-  //@UseGuards(RoleGuard)
+  @Role(UserRole.ADMIN, UserRole.COMMUNITY_HEALTH_WORKER)
+  @UseGuards(RoleGuard)
   @Post()
   create(
     @Body() createEducationContentDto: CreateEducationContentDto,

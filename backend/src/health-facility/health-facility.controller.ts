@@ -25,7 +25,7 @@ import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth-guard';
 export class HealthFacilityController {
   constructor(private readonly healthFacilityService: HealthFacilityService) {}
   @UseGuards(RoleGuard)
-  @Role(UserRole.HEALTHCARE_PROVIDER)
+  @Role(UserRole.HEALTHCARE_PROVIDER, UserRole.ADMIN)
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createHealthFacilityDto: CreateHealthFacilityDto) {
