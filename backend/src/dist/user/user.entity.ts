@@ -62,7 +62,7 @@ export class User {
   @OneToMany(() => HealthCheckup, (checkup) => checkup.user)
   healthCheckups: HealthCheckup[];
 
-  @OneToMany(() => Appointment, (appointment) => appointment.user)
+  @OneToMany(() => Appointment, (appointment) => appointment.healthWorker)
   appointments: Appointment[];
 
   @ManyToOne(() => Location, {
@@ -70,7 +70,7 @@ export class User {
     cascade: true,
     nullable: false,
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   location: Location;
