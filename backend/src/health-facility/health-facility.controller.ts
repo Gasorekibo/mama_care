@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  DefaultValuePipe,
   Delete,
   Get,
   InternalServerErrorException,
@@ -13,16 +12,16 @@ import {
   Query,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth-guard';
 import { Role } from 'src/authorization/role/role.decorator';
 import { RoleGuard } from 'src/authorization/role/role.guard';
 import { UserRole } from 'src/enums/user-role.enum';
 import { CreateHealthFacilityDto } from './dto/create-health-facility.dto';
 import { UpdateHealthFacilityDto } from './dto/update-health-facility.dto';
 import { HealthFacilityService } from './health-facility.service';
-import { JwtAuthGuard } from 'src/authentication/guards/jwt-auth-guard';
 import { NearbyHospitalService } from './nearbyHospitalService';
 
 @Controller('api/v1/facility')
@@ -53,7 +52,7 @@ export class HealthFacilityController {
   async findNearbyHospitals(
     @Query('latitude', ParseFloatPipe) latitude: number,
     @Query('longitude', ParseFloatPipe) longitude: number,
-    @Query('maxDistance', new DefaultValuePipe(10), ParseFloatPipe)
+    @Query('maxDistance')
     maxDistance?: number,
   ) {
     try {
