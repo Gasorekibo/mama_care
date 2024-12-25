@@ -4,8 +4,13 @@ import { CiLogin } from "react-icons/ci";
 import { GrSchedulePlay } from "react-icons/gr";
 import { MdAddHomeWork } from "react-icons/md";
 import { TbEmergencyBed } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 function Navigation() {
+  const navigate = useNavigate();
+  function handleNavigation(link) {
+    navigate(link);
+  }
   return (
     <>
       <Navbar
@@ -38,11 +43,19 @@ function Navigation() {
                 name@flowbite.com
               </span>
             </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Item>Earnings</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigation("/profile/1")}>
+              Dashboard
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigation("/profile/1")}>
+              Settings
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigation("/profile/1")}>
+              Earnings
+            </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigation("/profile/1")}>
+              Sign out
+            </Dropdown.Item>
           </Dropdown>
           <Navbar.Toggle />
         </div>
