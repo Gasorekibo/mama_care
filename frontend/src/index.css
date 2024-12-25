@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body{
-  background-color: #FFF8F0;
+body {
+  background-color: #fff8f0;
+  font-family: Georgia, "Times New Roman", Times, serif
 }
