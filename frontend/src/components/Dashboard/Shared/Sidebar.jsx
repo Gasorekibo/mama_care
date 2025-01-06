@@ -8,11 +8,11 @@ import {
 } from "../../../lib/constant";
 
 const linkClass =
-  "flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base";
+  "flex items-center gap-2 font-light px-3 py-2 text-neutral-50 hover:bg-blue-500 hover:no-underline active:bg-blue-600 rounded-sm text-base";
 
 export default function Sidebar() {
   return (
-    <div className="bg-neutral-900 w-60 p-3 flex flex-col">
+    <div className="bg-gradient-to-b from-blue-900/100 to-blue-800/90 w-60 p-3 flex flex-col">
       <div className="flex items-center gap-2 px-1 py-3">
         <img src="../../../public/logo.png" alt="" className="h-6" />
         <span className="text-neutral-200 text-lg">MamaCare</span>
@@ -54,7 +54,7 @@ function SidebarLink({ link }) {
       to={link.path}
       className={classNames(
         pathname === link.path
-          ? "bg-neutral-700 text-white"
+          ? "bg-neutral-700 text-neutral-50"
           : "text-neutral-400",
         linkClass
       )}
