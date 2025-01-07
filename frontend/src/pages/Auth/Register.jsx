@@ -1,6 +1,8 @@
 import { Button, Label, TextInput, Card, Alert } from "flowbite-react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { registerAction } from "../../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
 import {
   HiUser,
   HiMail,
@@ -13,9 +15,12 @@ import {
 } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import getLocation from "../../helper/getLocation";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const schema = yup
     .object({
       fullName: yup.string().required("Full name is required"),
@@ -48,10 +53,27 @@ const Register = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    // Handle registration logic here (e.g., API call)
-    console.log(data);
-    // Simulate successful registration
+  const onSubmit = async (data) => {
+    const { latitude, longitude } = await getLocation();
+    const dataToSubmit = {
+      full_name: data.fullName,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      password: data.password,
+      location: {
+        latitude,
+        longitude,
+        address: data.address,
+        region: data.region,
+        province: data.province,
+      },
+    };
+    const result = await dispatch(registerAction(dataToSubmit));
+    if (result.meta.requestStatus === "fulfilled") {
+      navigate("/login");
+    } else {
+      toast.error(result.payload || "Registration failed. Please try again.");
+    }
   };
 
   return (
