@@ -3,10 +3,13 @@ import { Controller, useForm } from "react-hook-form";
 import { HiHeart, HiLockClosed, HiMail } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../redux/slices/authSlice";
 import * as yup from "yup";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const schema = yup.object({
     email: yup.string().email("Invalid email").required("Email is required"),
     password: yup
@@ -26,8 +29,9 @@ const Login = () => {
       password: "",
     },
   });
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const result = await dispatch(loginAction(data));
+    console.log(result)
   };
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
