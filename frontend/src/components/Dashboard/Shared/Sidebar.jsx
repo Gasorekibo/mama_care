@@ -13,10 +13,12 @@ const linkClass =
 export default function Sidebar() {
   return (
     <div className="bg-gradient-to-b from-blue-900/100 to-blue-800/90 w-60 p-3 flex flex-col">
-      <div className="flex items-center gap-2 px-1 py-3">
-        <img src="../../../public/logo.png" alt="" className="h-6" />
-        <span className="text-neutral-200 text-lg">MamaCare</span>
-      </div>
+      <Link to={"/"}>
+        <div className="flex items-center gap-2 px-1 py-3">
+          <img src="../../../public/logo.png" alt="" className="h-6" />
+          <span className="text-neutral-200 text-lg">MamaCare</span>
+        </div>
+      </Link>
       <div className="py-8 flex flex-1 flex-col gap-0.5">
         {DASHBOARD_SIDEBAR_LINKS.map((link) => (
           <SidebarLink key={link.key} link={link} />
