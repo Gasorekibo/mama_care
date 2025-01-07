@@ -6,6 +6,7 @@ import AllEducation from "./pages/Education/AllEducation";
 import MainLayout from "./components/shared/MainLayouy";
 import Layout from "./components/Dashboard/Shared/Layout";
 import Dashboard from "./components/Dashboard/Dashboard";
+import { ProtectedRoute } from "./components/Routes/protectedRoutes";
 
 const App = () => {
   return (
@@ -14,8 +15,11 @@ const App = () => {
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<Register />} />
+
           <Route path="/login" element={<Login />} />
-          <Route path="/pregnancy-education" element={<AllEducation />} />
+          <Route element={<ProtectedRoute/>}>
+            <Route path="/pregnancy-education" element={<AllEducation />} />
+          </Route>
         </Route>
         <Route path="/profile/:id" element={<Layout />}>
           <Route index element={<Dashboard />} />
