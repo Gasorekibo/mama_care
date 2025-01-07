@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/dist/user/user.entity';
 import { Repository } from 'typeorm';
@@ -17,17 +21,18 @@ export class AuthService {
   async validateUser(
     email: string,
     password: string,
-  ): Promise<Partial<User> | null> {
+  ): Promise<Partial<User> | UnauthorizedException> {
     const user = await this.userRepository.findOne({ where: { email } });
     if (user && (await bcrypt.compare(password, user.password))) {
       const { password, ...userWithNoPassword } = user;
       return userWithNoPassword;
+    } else {
+      return new UnauthorizedException('Invalid Credentials');
     }
-    return null;
   }
 
   async login(user: User): Promise<{
-    user: User | null;
+    user: User | UnauthorizedException;
     access_token: string;
     refresh_token: string;
   }> {
@@ -36,13 +41,21 @@ export class AuthService {
       role: user.role,
       sub: { id: user.id },
     };
-    return {
-      user,
-      access_token: this.jwtService.sign(payload),
-      refresh_token: this.jwtService.sign(payload, {
-        expiresIn: '2d',
-      }),
-    };
+    if (user?.id) {
+      return {
+        user,
+        access_token: this.jwtService.sign(payload),
+        refresh_token: this.jwtService.sign(payload, {
+          expiresIn: '2d',
+        }),
+      };
+    } else {
+      return {
+        user,
+        access_token: '',
+        refresh_token: '',
+      };
+    }
   }
 
   async register(createUserDto: UserAuthDto): Promise<User> {
