@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../../redux/slices/authSlice";
 import * as yup from "yup";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +32,14 @@ const Login = () => {
   });
   const onSubmit = async (data) => {
     const result = await dispatch(loginAction(data));
-    console.log(result)
+    if (result?.payload?.user?.id) {
+    navigate(`/profile/${result?.payload?.user?.id}`);
+    } else {
+      toast.error("Login failed. Please check your credentials and try again.", {
+        icon: "❌",
+        duration: 3000,
+      });
+    }
   };
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
