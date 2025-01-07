@@ -43,7 +43,6 @@ export const loginAction = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-        console.log(error)
       if (!error.response) {
         throw error;
       } else {
