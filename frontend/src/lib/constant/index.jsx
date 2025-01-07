@@ -17,6 +17,12 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     icon: <HiOutlineViewGrid />,
   },
   {
+    key: "users",
+    label: "Users",
+    path: "/profile/:id/users",
+    icon: <HiOutlineUsers />,
+  },
+  {
     key: "products",
     label: "Products",
     path: "/profile/:id/products",
