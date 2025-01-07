@@ -7,6 +7,7 @@ import MainLayout from "./components/shared/MainLayouy";
 import Layout from "./components/Dashboard/Shared/Layout";
 import Dashboard from "./components/Dashboard/Dashboard";
 import { ProtectedRoute } from "./components/Routes/protectedRoutes";
+import AllUsers from "./components/Dashboard/AllUsers";
 
 const App = () => {
   return (
@@ -17,13 +18,14 @@ const App = () => {
           <Route path="/register" element={<Register />} />
 
           <Route path="/login" element={<Login />} />
-          <Route element={<ProtectedRoute/>}>
+          <Route element={<ProtectedRoute />}>
             <Route path="/pregnancy-education" element={<AllEducation />} />
           </Route>
         </Route>
         <Route path="/profile/:id" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<AllEducation />} />
+          <Route path="users" element={<AllUsers />} />
         </Route>
       </Routes>
     </>
