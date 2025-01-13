@@ -1,16 +1,83 @@
 import classNames from "classnames";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { HiOutlineLogout } from "react-icons/hi";
 import PropTypes from "prop-types";
 import {
-  DASHBOARD_SIDEBAR_BOTTOM_LINKS,
-  DASHBOARD_SIDEBAR_LINKS,
-} from "../../../lib/constant";
+  HiOutlineViewGrid,
+  HiOutlineCube,
+  HiOutlineShoppingCart,
+  HiOutlineUsers,
+  HiOutlineDocumentText,
+  HiOutlineAnnotation,
+  HiOutlineQuestionMarkCircle,
+  HiOutlineCog,
+} from "react-icons/hi";
 
 const linkClass =
   "flex items-center gap-2 font-light px-3 py-2 text-neutral-50 hover:bg-blue-500 hover:no-underline active:bg-blue-600 rounded-sm text-base";
 
 export default function Sidebar() {
+  const { id } = useParams();
+  const DASHBOARD_SIDEBAR_LINKS = [
+    {
+      key: "dashboard",
+      label: "Dashboard",
+      path: `/profile/${id}`,
+      icon: <HiOutlineViewGrid />,
+    },
+    {
+      key: "users",
+      label: "Users",
+      path: `/profile/${id}/users`,
+      icon: <HiOutlineUsers />,
+    },
+    {
+      key: "education",
+      label: "Education",
+      path: `/profile/${id}/education`,
+      icon: <HiOutlineCube />,
+    },
+    {
+      key: "orders",
+      label: "Orders",
+      path: `/profile/${id}/orders`,
+      icon: <HiOutlineShoppingCart />,
+    },
+    {
+      key: "customers",
+      label: "Customers",
+      path: `/profile/${id}/customers`,
+      icon: <HiOutlineUsers />,
+    },
+    {
+      key: "transactions",
+      label: "Transactions",
+      path: `/profile/${id}/transactions`,
+      icon: <HiOutlineDocumentText />,
+    },
+    {
+      key: "messages",
+      label: "Messages",
+      path: `/profile/${id}/messages`,
+      icon: <HiOutlineAnnotation />,
+    },
+  ];
+
+  const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
+    {
+      key: "settings",
+      label: "Settings",
+      path: `/profile/${id}/settings`,
+      icon: <HiOutlineCog />,
+    },
+    {
+      key: "support",
+      label: "Help & Support",
+      path: `/profile/${id}/support`,
+      icon: <HiOutlineQuestionMarkCircle />,
+    },
+  ];
+
   return (
     <div className="bg-gradient-to-b from-blue-900/100 to-blue-800/90 w-60 p-3 flex flex-col">
       <Link to={"/"}>
