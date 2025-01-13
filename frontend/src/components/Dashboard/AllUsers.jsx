@@ -34,7 +34,7 @@ function AllUsers() {
             </TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell>{user.phoneNumber}</TableCell>
-            <TableCell>{user.role}</TableCell>
+            <TableCell className="text-red-900">{user.role.toLowerCase()}</TableCell>
             <TableCell>{user.location.address}</TableCell>
             <TableCell>{user.location.region}</TableCell>
             <TableCell>{user.location.province}</TableCell>
