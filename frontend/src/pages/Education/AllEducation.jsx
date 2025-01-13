@@ -1,7 +1,21 @@
+import { MdOutlinePlaylistAddCircle } from "react-icons/md";
+
 function AllEducation() {
+  const { user } = JSON.parse(localStorage.getItem("userInfo"));
+  const isAdmin = user?.role === "ADMIN";
   return (
     <div>
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8">
+      {isAdmin && (
+        <button
+          type="button"
+          className="text-white lg:absolute md:right-14 md:top-16 md:my-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          <MdOutlinePlaylistAddCircle className="text-lg me-2" />
+          Add new
+        </button>
+      )}
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8 md:p-12">
         <li className="relative flex flex-col sm:flex-row xl:flex-col items-start">
           <div className="order-1 sm:ml-6 xl:ml-0">
             <h3 className="mb-1 text-slate-900 font-semibold">
