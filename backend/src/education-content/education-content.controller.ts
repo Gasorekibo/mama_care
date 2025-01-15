@@ -28,7 +28,7 @@ export class EducationContentController {
   constructor(
     private readonly educationContentService: EducationContentService,
   ) {}
-  @Role(UserRole.ADMIN, UserRole.COMMUNITY_HEALTH_WORKER)
+  @Role(UserRole.ADMIN, UserRole.COMMUNITY_HEALTH_WORKER, UserRole.PREGNANT_WOMAN)
   @UseGuards(RoleGuard)
   @Post()
   create(
