@@ -68,3 +68,24 @@ export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
     icon: <HiOutlineQuestionMarkCircle />,
   },
 ];
+
+export const typeOptions = [
+  { value: "NUTRITION", label: "NUTRITION" },
+  { value: "EXERCISE", label: "EXERCISE" },
+  { value: "MENTAL_HEALTH", label: "MENTAL HEALTH" },
+  { value: "PREGNANCY", label: "PREGNANCY" },
+];
+
+export const riskLevel = [
+  { value: "ALL", label: "ALL" },
+  { value: "LOW", label: "LOW" },
+  { value: "MEDIUM", label: "MEDIUM" },
+  { value: "HIGH", label: "HIGH" },
+];
+
+export const filterUserOptions = [
+  { value: "PREGNANT_WOMAN", label: "Pregnant women" },
+  { value: "ADMIN", label: "Admin" },
+  { value: "COMMUNITY_HEALTH_WORKER", label: "chw" },
+  { value: "HEALTHCARE_PROVIDER", label: "healthcare provider" },
+];
