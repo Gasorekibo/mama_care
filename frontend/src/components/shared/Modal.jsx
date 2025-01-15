@@ -1,15 +1,22 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Label, Textarea, TextInput } from "flowbite-react";
+import { Button } from "flowbite-react";
 import PropTypes from "prop-types";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { HiMail } from "react-icons/hi";
 import { FaLink } from "react-icons/fa";
-import { RiSkull2Fill } from "react-icons/ri";
-import { CgSelectR } from "react-icons/cg";
+//import { RiSkull2Fill } from "react-icons/ri";
+//import { CgSelectR } from "react-icons/cg";
 import { MdOutlineTextSnippet } from "react-icons/md";
 import * as yup from "yup";
+import FormInput from "./InputText";
+import SelectInput from "./SelectInput";
+import { riskLevel, typeOptions } from "../../lib/constant";
 
-export default function Modal({ modelId, isModalOpen, closeModal }) {
+export default function AddEducationModal({
+  modelId,
+  isModalOpen,
+  closeModal,
+}) {
   const schema = yup.object({
     title: yup.string().required("Title is required"),
     content: yup.string().required("Content is required"),
@@ -19,12 +26,8 @@ export default function Modal({ modelId, isModalOpen, closeModal }) {
       .string()
       .required("Recommended for risk level is required"),
   });
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm({
+
+  const { handleSubmit, control, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       title: "",
@@ -34,9 +37,11 @@ export default function Modal({ modelId, isModalOpen, closeModal }) {
       recommendedForRiskLevel: "",
     },
   });
+
   const onSubmit = async (data) => {
     console.log(data);
   };
+
   return (
     <div>
       <div
@@ -80,123 +85,53 @@ export default function Modal({ modelId, isModalOpen, closeModal }) {
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 px-10">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <div className="mb-2 block">
-                    <Label htmlFor="title" value="Title" />
-                  </div>
-                  <Controller
-                    name="title"
-                    control={control}
-                    render={({ field }) => (
-                      <TextInput
-                        {...field}
-                        id="title"
-                        type="title"
-                        icon={HiMail}
-                        placeholder="Nutrition for Perinatal"
-                        color={errors.title?.message ? "failure" : "gray"}
-                        helperText={errors.title?.message}
-                      />
-                    )}
-                  />
-                </div>
+                <FormInput
+                  name="title"
+                  control={control}
+                  label="Title"
+                  icon={HiMail}
+                  placeholder="Nutrition for Perinatal"
+                />
 
-                <div>
-                  <div className="mb-2 block">
-                    <Label htmlFor="content" value="Content" />
-                  </div>
-                  <Controller
-                    name="content"
-                    control={control}
-                    render={({ field }) => (
-                      <Textarea
-                        id="content"
-                        type="content"
-                        icon={MdOutlineTextSnippet}
-                        placeholder="Lorem ipsum dolor sit amet."
-                        color={errors.content?.message ? "failure" : "gray"}
-                        helperText={errors.content?.message}
-                        className="focus:border-black"
-                        {...field}
-                      />
-                    )}
-                  />
-                </div>
-                <div>
-                  <div className="mb-2 block">
-                    <Label htmlFor="type" value="Type" />
-                  </div>
-                  <Controller
-                    name="type"
-                    control={control}
-                    render={({ field }) => (
-                      <TextInput
-                        id="type"
-                        type="type"
-                        icon={CgSelectR}
-                        placeholder="Nutrition"
-                        color={errors.type?.message ? "failure" : "gray"}
-                        helperText={errors.type?.message}
-                        {...field}
-                      />
-                    )}
-                  />
-                </div>
-                <div>
-                  <div className="mb-2 block">
-                    <Label htmlFor="videoUrl" value="Video Url" />
-                  </div>
-                  <Controller
-                    name="videoUrl"
-                    control={control}
-                    render={({ field }) => (
-                      <TextInput
-                        id="videoUrl"
-                        type="videoUrl"
-                        icon={FaLink}
-                        placeholder="https://www.youtube.com/watch?v=n04NPtZI4QQ"
-                        color={errors.videoUrl?.message ? "failure" : "gray"}
-                        helperText={errors.videoUrl?.message}
-                        {...field}
-                      />
-                    )}
-                  />
-                </div>
-                <div>
-                  <div className="mb-2 block">
-                    <Label
-                      htmlFor="recommendedForRiskLevel"
-                      value="Risk Level"
-                    />
-                  </div>
-                  <Controller
-                    name="recommendedForRiskLevel"
-                    control={control}
-                    render={({ field }) => (
-                      <TextInput
-                        id="recommendedForRiskLevel"
-                        type="recommendedForRiskLevel"
-                        icon={RiSkull2Fill}
-                        placeholder="MEDIUM"
-                        color={
-                          errors.recommendedForRiskLevel?.message
-                            ? "failure"
-                            : "gray"
-                        }
-                        helperText={errors.recommendedForRiskLevel?.message}
-                        {...field}
-                      />
-                    )}
-                  />
-                </div>
+                <SelectInput
+                  name="type"
+                  control={control}
+                  options={typeOptions}
+                  label="Type"
+                  placeholder="Select Type"
+                />
+
+                <FormInput
+                  name="videoUrl"
+                  control={control}
+                  label="Video URL"
+                  icon={FaLink}
+                  placeholder="https://www.youtube.com/watch?v=n04NPtZI4QQ"
+                />
+
+                <SelectInput
+                  name="recommendedForRiskLevel"
+                  control={control}
+                  options={riskLevel}
+                  label="Recommended For Risk Level"
+                  placeholder="Select Risk Level"
+                />
+                <FormInput
+                  name="content"
+                  control={control}
+                  label="Content"
+                  icon={MdOutlineTextSnippet}
+                  placeholder="Lorem ipsum dolor sit amet."
+                  multiline={true}
+                />
               </div>
 
               <div className="flex justify-end space-x-4 py-4">
                 <Button
                   type="button"
-                  color=" orange"
+                  color="orange"
                   onClick={() => reset()}
-                  className="bg-orange-400  hover:bg-orange-300 text-white"
+                  className="bg-orange-400 hover:bg-orange-300 text-white"
                 >
                   Clear
                 </Button>
@@ -219,7 +154,7 @@ export default function Modal({ modelId, isModalOpen, closeModal }) {
   );
 }
 
-Modal.propTypes = {
+AddEducationModal.propTypes = {
   modelId: PropTypes.string.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
