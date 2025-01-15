@@ -33,7 +33,7 @@ SelectInput.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
     })
   ).isRequired,
   placeHolder: PropTypes.string.isRequired,
