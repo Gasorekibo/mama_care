@@ -1,43 +1,72 @@
 import PropTypes from "prop-types";
+import { Controller } from "react-hook-form";
+import { Label } from "flowbite-react";
 
-function SelectInput({ options, placeHolder, haslabel }) {
+function SelectInput({
+  name,
+  control,
+  options,
+  label,
+  placeholder,
+  className = "",
+  disabled = false,
+}) {
   return (
-    <form className="max-w-sm mb-3">
-      {haslabel && (
-        <label
-          htmlFor="countries"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Select an option
-        </label>
+    <div className={className}>
+      {label && (
+        <div className="mb-2 block">
+          <Label htmlFor={name} value={label} />
+        </div>
       )}
-      <select
-        id="countries"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-      >
-        <option defaultValue={"Default"}>{placeHolder}</option>
-        {options?.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-            className="text-sm text-gray-900 dark:text-white"
-          >
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </form>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <div>
+            <select
+              {...field}
+              id={name}
+              disabled={disabled}
+              className={`bg-gray-50 border ${
+                error ? "border-red-500" : "border-gray-300"
+              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+            >
+              <option value="" disabled>
+                {placeholder}
+              </option>
+              {options?.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  className="text-sm text-gray-900 dark:text-white"
+                >
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            {error && (
+              <p className="mt-1 text-sm text-red-500">{error.message}</p>
+            )}
+          </div>
+        )}
+      />
+    </div>
   );
 }
+
 SelectInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  control: PropTypes.object.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
     })
   ).isRequired,
-  placeHolder: PropTypes.string.isRequired,
-  haslabel: PropTypes.bool.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default SelectInput;
