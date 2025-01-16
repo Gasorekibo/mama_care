@@ -14,7 +14,7 @@ import {
 } from "react-icons/hi";
 
 const linkClass =
-  "flex items-center gap-2 font-light px-3 py-2 text-neutral-50 hover:bg-blue-500 hover:no-underline active:bg-blue-600 rounded-sm text-base";
+  "flex items-center gap-2 font-light px-3 py-2 text-neutral-50 hover:bg-blue-500 hover:no-underline active:bg-blue-600 rounded-sm text-base hover:transition hover:duration-500 hover:ease-in-out";
 
 export default function Sidebar() {
   const { id } = useParams();
