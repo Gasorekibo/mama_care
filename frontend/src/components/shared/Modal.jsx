@@ -4,19 +4,21 @@ import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { HiMail } from "react-icons/hi";
 import { FaLink } from "react-icons/fa";
-//import { RiSkull2Fill } from "react-icons/ri";
-//import { CgSelectR } from "react-icons/cg";
+import { useDispatch } from "react-redux";
 import { MdOutlineTextSnippet } from "react-icons/md";
 import * as yup from "yup";
 import FormInput from "./InputText";
 import SelectInput from "./SelectInput";
 import { riskLevel, typeOptions } from "../../lib/constant";
+import { addEducationAction } from "../../redux/slices/educationSlice";
+import { toast } from "react-hot-toast";
 
 export default function AddEducationModal({
   modelId,
   isModalOpen,
   closeModal,
 }) {
+  const dispatch = useDispatch();
   const schema = yup.object({
     title: yup.string().required("Title is required"),
     content: yup.string().required("Content is required"),
@@ -39,7 +41,14 @@ export default function AddEducationModal({
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    const result = await dispatch(addEducationAction(data));
+    if (addEducationAction.fulfilled.match(result)) {
+      closeModal();
+      reset();
+    } else {
+      toast.error(result?.payload);
+      console.log("Error", result);
+    }
   };
 
   return (
