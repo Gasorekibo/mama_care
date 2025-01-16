@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { getAllUserAction } from "../../redux/slices/userSlice";
 import SelectInput from "../shared/SelectInput";
 import { filterUserOptions } from "../../lib/constant";
+import PopOver from "../shared/PopOver";
 
 function AllUsers() {
   const dispatch = useDispatch();
@@ -82,7 +83,24 @@ function AllUsers() {
                 <TableCell>{user.location.region}</TableCell>
                 <TableCell>{user.location.province}</TableCell>
                 <TableCell>{`${user.location.latitude}/ ${user.location.longitude}`}</TableCell>
-                <TableCell>Edit</TableCell>
+                <TableCell>
+                  <PopOver action="Delete or Edit User" title="Action">
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => console.log("Deleted User ", user?.id)}
+                        className="bg-red-500 hover:bg-red-700 text-white  font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline focus:border-red-300 dark:focus:border-red-500"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => console.log("Edit User ", user?.id)}
+                        className="bg-blue-500 hover:bg-blue-700 text-white  font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline focus:border-blue-300 dark:focus:border-red-500"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  </PopOver>
+                </TableCell>
               </TableRow>
             ))
           ) : (
