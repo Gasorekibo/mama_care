@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { HiOutlineLogout } from "react-icons/hi";
+import { FaRegHospital } from "react-icons/fa";
 import PropTypes from "prop-types";
 import {
   HiOutlineViewGrid,
   HiOutlineCube,
-  HiOutlineShoppingCart,
   HiOutlineUsers,
   HiOutlineDocumentText,
   HiOutlineAnnotation,
@@ -39,9 +39,9 @@ export default function Sidebar() {
     },
     {
       key: "orders",
-      label: "Orders",
-      path: `/profile/${id}/orders`,
-      icon: <HiOutlineShoppingCart />,
+      label: "Hospitals",
+      path: `/profile/${id}/hospitals`,
+      icon: <FaRegHospital />,
     },
     {
       key: "customers",
