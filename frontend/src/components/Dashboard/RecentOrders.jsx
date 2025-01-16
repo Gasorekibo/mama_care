@@ -73,7 +73,7 @@ export default function RecentOrders() {
         <table className="w-full text-gray-700">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>N<sup>o</sup></th>
               <th>Product ID</th>
               <th>Customer Name</th>
               <th>Order Date</th>
@@ -84,13 +84,13 @@ export default function RecentOrders() {
           </thead>
           <tbody>
             {recentOrderData.map((order) => (
-              <tr key={order.id}>
+              <tr key={order.id} className="border-t border-gray-200">
                 <td>
-                  <Link to={`/order/${order.id}`}>#{order.id}</Link>
+                  <Link to={`/order/${order.id}`}>{order.id}</Link>
                 </td>
                 <td>
                   <Link to={`/product/${order.product_id}`}>
-                    #{order.product_id}
+                    {order.product_id}
                   </Link>
                 </td>
                 <td>
