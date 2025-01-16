@@ -46,10 +46,11 @@ function AllEducation() {
             key={item.id}
             videoUrl={item.videoUrl}
             title={item.title}
-            content={item.content?.slice(0, 150) + "..."}
+            content={item.content}
             type={item.type}
             recommended={item.recommendedForRiskLevel}
             id={item.id}
+            author={item.author}
           />
         ))}
       </div>
