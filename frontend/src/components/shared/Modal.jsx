@@ -126,6 +126,7 @@ export default function AddEducationModal({
                   placeholder="Select Risk Level"
                 />
                 <FormInput
+                  className="col-span-2"
                   name="content"
                   control={control}
                   label="Content"
