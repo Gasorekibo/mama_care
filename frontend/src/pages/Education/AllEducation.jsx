@@ -48,7 +48,8 @@ function AllEducation() {
             title={item.title}
             content={item.content?.slice(0, 150) + "..."}
             type={item.type}
-            recommended={item.recommended}
+            recommended={item.recommendedForRiskLevel}
+            id={item.id}
           />
         ))}
       </div>
