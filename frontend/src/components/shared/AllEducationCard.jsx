@@ -23,10 +23,13 @@ function AllEducationCard({ videoUrl, title, content, type, recommended, id }) {
         <div className="prose prose-slate prose-sm text-slate-600">
           <p>{content}</p>
         </div>
-        <p onClick={()=> console.log(`Education ${id} in details`)} className="group inline-flex cursor-pointer items-center h-9 rounded-full text-sm font-semibold whitespace-nowrap px-3 focus:outline-none focus:ring-2 bg-slate-100 text-slate-700 hover:bg-blue-700 hover:text-white focus:ring-slate-500 mt-6">
+        <p
+          onClick={() => console.log(`Education ${id} in details`)}
+          className="group hover:transition hover:duration-700 hover:ease-in-out inline-flex cursor-pointer items-center h-9 rounded-full text-sm font-semibold whitespace-nowrap px-3 focus:outline-none focus:ring-2 bg-slate-100 text-slate-700 hover:bg-blue-700 hover:text-white focus:ring-slate-500 mt-6"
+        >
           Learn more
           <svg
-            className="overflow-visible ml-3 text-slate-300 group-hover:text-slate-400"
+            className="overflow-visible ml-3 text-slate-300 group-hover:text-white"
             width="3"
             height="6"
             viewBox="0 0 3 6"
