@@ -22,7 +22,7 @@ function Navigation() {
       <button
         onClick={() => navigate(to)}
         className={`${className} ${
-          isActive ? "text-white bg-blue-500" : ""
+          isActive ? "text-white bg-blue-500 " : ""
         }  text-left px-3 py-2 transition-colors duration-200`}
       >
         {children}
@@ -39,7 +39,7 @@ function Navigation() {
     <Navbar
       fluid
       rounded
-      className="px-4 text-primaryText bg-slate-100 shadow-md"
+      className="px-4 text-primaryText bg-slate-100 shadow-md "
     >
       <button onClick={() => navigate("/")} className="flex items-center">
         <img src="logo.png" className="mr-3 h-6 sm:h-9" alt="Mama care logo" />
@@ -87,7 +87,7 @@ function Navigation() {
           <NavLink
             key={link.name}
             to={link.url}
-            className="flex items-center font-normal hover:text-white hover:bg-blue-500 rounded-md"
+            className="flex items-center font-normal hover:text-white hover:bg-blue-500 rounded-md hover:transition hover:duration-700 hover:ease-in-out"
           >
             {link.icon}
             <span className="ml-1">{link.name}</span>
