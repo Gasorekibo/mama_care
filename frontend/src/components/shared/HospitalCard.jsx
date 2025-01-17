@@ -1,6 +1,16 @@
-import { Button } from "flowbite-react";
+import { Button, Modal } from "flowbite-react";
 import PropTypes from "prop-types";
+import ModalPopUp from "./ModalPopUp";
+import { useState } from "react";
+import { IoMdClose } from "react-icons/io";
 function HospitalCard({ hospital }) {
+  const [showModal, setShowModal] = useState(false);
+  function openModal() {
+    setShowModal(true);
+  }
+  function closeModal() {
+    setShowModal(false);
+  }
   return (
     <div className="flex flex-col justify-center items-center bg-gray-100 p-4">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-lg w-full">
@@ -31,19 +41,26 @@ function HospitalCard({ hospital }) {
 
                 <p className="font-semibold">
                   Phone:
-                  <span className="font-normal mx-2">{hospital?.contactNumber}</span>
+                  <span className="font-normal mx-2">
+                    {hospital?.contactNumber}
+                  </span>
                 </p>
                 <p className="font-semibold">
-                  Email:<span className="font-normal mx-2">{hospital?.email}</span>
+                  Email:
+                  <span className="font-normal mx-2">{hospital?.email}</span>
                 </p>
                 <p className="font-semibold">
                   Open:
-                  <span className="font-normal mx-2">{hospital?.openingTime}</span>
+                  <span className="font-normal mx-2">
+                    {hospital?.openingTime}
+                  </span>
                 </p>
 
                 <p className="font-semibold">
                   Close:
-                  <span className="font-normal mx-2">{hospital?.closingTime}</span>
+                  <span className="font-normal mx-2">
+                    {hospital?.closingTime}
+                  </span>
                 </p>
               </div>
             </div>
@@ -74,6 +91,7 @@ function HospitalCard({ hospital }) {
           </div>
 
           <Button
+            onClick={() => openModal()}
             color="blue"
             className="bg-blue-700 hover:bg-blue-800 mx-auto mt-4"
           >
@@ -81,6 +99,41 @@ function HospitalCard({ hospital }) {
           </Button>
         </div>
       </div>
+      <ModalPopUp showModal={showModal} closeModal={closeModal}>
+        <div className="">
+          <Modal.Body className="lg:h-screen lg:w-screen lg:max-w-screen-lg lg:relative lg:-left-28 bg-white dark:bg-gray-800 rounded-lg">
+            <img
+              className="w-full h-80 object-cover rounded-t-lg"
+              src={hospital?.profilePicture}
+              alt="Hospital Profile"
+            />
+
+            <div className="p-8 lg:p-12">
+              <h3 className="mb-1 text-slate-900 font-semibold flex justify-between">
+                {hospital?.name}
+                <span className="px-2 rounded-full  text-white relative -top-8">
+                  {hospital?.location?.province} - {hospital?.location?.region}{" "}
+                  {hospital?.location?.address}
+                </span>
+              </h3>
+              Booking Form goes here
+              <div className="flex justify-end gap-4">
+                <Button
+                  color="red"
+                  className="bg-red-600 text-white hover:bg-red-700 hover:text-red-600"
+                  onClick={closeModal}
+                >
+                  Delete
+                </Button>
+                <Button color="gray" onClick={closeModal}>
+                  <IoMdClose className="items-center size-5" /> Close
+                </Button>
+              </div>
+            </div>
+          </Modal.Body>
+          {/* <Modal.Footer></Modal.Footer> */}
+        </div>
+      </ModalPopUp>
     </div>
   );
 }
