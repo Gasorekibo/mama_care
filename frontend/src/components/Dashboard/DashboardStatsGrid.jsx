@@ -2,7 +2,9 @@ import { IoPeople } from "react-icons/io5";
 import { FaCalendarAlt } from "react-icons/fa";
 import { LiaHospitalSolid } from "react-icons/lia";
 import { IoIosWoman } from "react-icons/io";
-export default function DashboardStatsGrid() {
+import PropTypes from "prop-types";
+export default function DashboardStatsGrid({ users, hospitals }) {
+  console.log(users)
   return (
     <div className="flex gap-4">
       <BoxWrapper>
@@ -13,7 +15,7 @@ export default function DashboardStatsGrid() {
           <span className="text-sm text-gray-500 font-light">Total Users</span>
           <div className="flex items-center">
             <strong className="text-xl text-gray-700 font-semibold">
-              54232
+              {users?.length}
             </strong>
             <span className="text-sm text-blue-500 pl-2">+343</span>
           </div>
@@ -45,7 +47,7 @@ export default function DashboardStatsGrid() {
           </span>
           <div className="flex items-center">
             <strong className="text-xl text-gray-700 font-semibold">
-              12313
+              {hospitals?.length}
             </strong>
             <span className="text-sm text-red-500 pl-2">-30</span>
           </div>
@@ -76,4 +78,9 @@ function BoxWrapper({ children }) {
       {children}
     </div>
   );
+}
+
+DashboardStatsGrid.propTypes = {
+  users: PropTypes.array.isRequired,
+  hospitals: PropTypes.array.isRequired,
 }
