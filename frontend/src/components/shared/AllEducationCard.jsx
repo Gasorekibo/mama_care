@@ -14,7 +14,7 @@ function AllEducationCard({
   author,
 }) {
   const [showModal, setShowModal] = useState(false);
-  function handleAddNew() {
+  function openModal() {
     setShowModal(true);
   }
 
@@ -35,7 +35,7 @@ function AllEducationCard({
           <p>{content?.slice(0, 150) + "..."}</p>
         </div>
         <button
-          onClick={handleAddNew}
+          onClick={openModal}
           className="group hover:transition hover:duration-700 hover:ease-in-out inline-flex cursor-pointer items-center h-9 rounded-full text-sm font-semibold whitespace-nowrap px-3 focus:outline-none focus:ring-2 bg-slate-100 text-slate-700 hover:bg-blue-700 hover:text-white focus:ring-slate-500 mt-6"
         >
           Learn more
