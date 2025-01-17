@@ -8,6 +8,7 @@ import Layout from "./components/Dashboard/Shared/Layout";
 import Dashboard from "./components/Dashboard/Dashboard";
 import { ProtectedRoute } from "./components/Routes/protectedRoutes";
 import AllUsers from "./components/Dashboard/AllUsers";
+import AllHospitals from "./pages/Hospitals/AllHospitals";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route index element={<Dashboard />} />
           <Route path="education" element={<AllEducation />} />
           <Route path="users" element={<AllUsers />} />
+          <Route path="hospitals" element={<AllHospitals />} />
         </Route>
       </Routes>
     </>
