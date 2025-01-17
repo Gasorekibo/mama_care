@@ -38,7 +38,7 @@ export class HealthFacilityController {
     return this.healthFacilityService.create(createHealthFacilityDto);
   }
   @UseGuards(RoleGuard)
-  @Role(UserRole.ADMIN)
+  @Role(UserRole.ADMIN, UserRole.HEALTHCARE_PROVIDER, UserRole.PREGNANT_WOMAN)
   @UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {
