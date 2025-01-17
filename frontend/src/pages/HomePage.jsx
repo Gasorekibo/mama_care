@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import { process } from "../utils/processes";
-import { hospitals } from "../utils/Hospitals";
 import HeroSection from "../components/HeroSection";
+import HospitalCard from "../components/shared/HospitalCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllHospitalAction } from "../redux/slices/hospitalSlice";
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllHospitalAction());
+  }, [dispatch]);
+  const { hospitals } = useSelector((state) => state.hospitals);
 
+  hospitals.forEach((hos) => console.log(hos));
   const categories = [
     { id: "all", name: "All Hospitals" },
     { id: "speciality", name: "Specialty Centers" },
@@ -70,35 +78,9 @@ const HomePage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {hospitals.map((hospital) => (
-              <div
-                key={hospital.hospitalName}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <img
-                  src={hospital.imageSource}
-                  alt={hospital.hospitalName}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {hospital.hospitalName}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{hospital.description}</p>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <img
-                        src={hospital.ownerProfile}
-                        alt={hospital.owner}
-                        className="w-8 h-8 rounded-full mr-2 object-cover"
-                      />
-                      <span className="text-gray-800 font-semibold">
-                        {hospital.owner}
-                      </span>
-                    </div>
-                    <span className="text-gray-600">{hospital.time}</span>
-                  </div>
-                </div>
-              </div>
+              <>
+                <HospitalCard key={hospital.id} hospital={hospital} />
+              </>
             ))}
           </div>
         </div>
