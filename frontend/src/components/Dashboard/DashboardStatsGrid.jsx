@@ -4,7 +4,6 @@ import { LiaHospitalSolid } from "react-icons/lia";
 import { IoIosWoman } from "react-icons/io";
 import PropTypes from "prop-types";
 export default function DashboardStatsGrid({ users, hospitals }) {
-  console.log(users)
   return (
     <div className="flex gap-4">
       <BoxWrapper>
