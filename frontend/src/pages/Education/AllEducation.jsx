@@ -8,7 +8,7 @@ import { getAllEducationAction } from "../../redux/slices/educationSlice";
 function AllEducation() {
   const dispatch = useDispatch();
   const { user } = JSON.parse(localStorage.getItem("userInfo"));
-  const { education } = useSelector((state) => state.education);
+  const { education, error } = useSelector((state) => state.education);
   const isAdmin = user?.role === "PREGNANT_WOMAN";
   useEffect(() => {
     dispatch(getAllEducationAction());
@@ -22,8 +22,12 @@ function AllEducation() {
   function closeModal() {
     setIsModalOpen(false);
   }
+
   return (
     <div>
+      {error && (
+        <p className="text-red-500 text-center text-3xl ">Error: {error}</p>
+      )}
       {isAdmin && (
         <button
           onClick={handleAddNew}
