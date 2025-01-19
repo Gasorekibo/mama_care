@@ -5,6 +5,7 @@ import HeroSection from "../components/HeroSection";
 import HospitalCard from "../components/shared/HospitalCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllHospitalAction } from "../redux/slices/hospitalSlice";
+import classname from "classnames";
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -12,9 +13,8 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(getAllHospitalAction());
   }, [dispatch]);
-  const { hospitals } = useSelector((state) => state.hospitals);
+  const { hospitals, error, loading } = useSelector((state) => state.hospitals);
 
-  hospitals.forEach((hos) => console.log(hos));
   const categories = [
     { id: "all", name: "All Hospitals" },
     { id: "speciality", name: "Specialty Centers" },
@@ -52,8 +52,9 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Hospitals Section */}
-      <div className="bg-gray-50 py-20">
+      <div
+        className={classname("py-20 bg-gray-100", { hidden: error || loading })}
+      >
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
             Our Hospital Network
